@@ -27,8 +27,14 @@ def start():
                 pb.change(*new_value)
             case 7:
                 index = view.select_to_delete(pb.get())
-                pb.delete(index)
+                name = pb.get_name(index+1)
+                if view.confirm('удалить', name):
+                    pb.delete(index)
             case 8:
+                if pb.check_changes():
+                    if view.confirm_changes():
+                        pb.save()
+                        print('Изменеия успешно сохранены')
                 view.goodbye()
                 break
 

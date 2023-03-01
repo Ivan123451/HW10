@@ -9,8 +9,12 @@ def menu() -> int:
     6. Изменить контакт
     7. Удалить контакт
     8. Выход''')
-    choice = int(input('Выберите пункт меню: '))
-    return choice
+    while True:
+        choice = input('Выберите пункт меню: ')
+
+        if choice.isdigit() and 0 < int(choice) < 9:
+            return int(choice)
+        print(f'вы зачем-то ввели {choice}, а надо число от 1 до 8, одумайтесь')
 
 
 
@@ -29,11 +33,15 @@ def show_contacts(phone_book: list[dict]):
 
 def new_contact() -> dict:
     print()
-    name = input('Введите имя и фамилию: ')
-    phone = input('Введите номер телефона: ')
-    comment = input('Введите комментарий: ')
-    print()
-    return {'name': name, 'phone': phone, 'comment': comment}
+    while True:
+        name = input('Введите имя и фамилию: ')
+        phone = input('Введите номер (5 цифр): ')
+        comment = input('Введите комментарий: ')
+        print()
+        if phone.isdigit() and (9999 < int(phone) < 100000):
+            return {'name': name, 'phone': phone, 'comment': comment}
+        print('вы ввели номер телефона не корректно, нужно 5 цифр')
+
 
 def change_contact(book: list) -> tuple:
     show_contacts(book)
@@ -53,4 +61,15 @@ def input_requeat(text: str) -> str:
 
 def goodbye():
     print('Досвидания')
+
+def confirm(condition: str, name: str):
+    answer = input(f'Вы действительно хотите {condition} контакт {name}? (y/n)')
+    if answer == 'y':
+        return True
+    else:
+        return False
+
+def confirm_changes():
+    answer = input('У вас есть несохраненные изменения, хотите их сохранить? (y/n)')
+    return True if answer == 'y' else False
 

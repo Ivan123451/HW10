@@ -1,9 +1,10 @@
-
+from copy import deepcopy
 class PhoneBook:
 
     def __init__(self, path: str = 'phone_db.txt'):
         self.path = path
         self.phone_book = []
+        self.phone_book_for_copy = []
 
     def open_file(self):
         with open(self.path, 'r', encoding='UTF-8') as file:
@@ -15,6 +16,9 @@ class PhoneBook:
             pb['phone'] = new[1]
             pb['comment'] = new[2]
             self.phone_book.append(pb)
+        self.phone_book_for_copy = deepcopy(self.phone_book)
+
+
         print('\nТелефонная книга успешно загружена\n')
     #
     def save(self):
@@ -59,6 +63,6 @@ class PhoneBook:
 
     def check_changes(self):
 
-        if self.phone_book != self.new_phone_book:
+        if self.phone_book != self.phone_book_for_copy:
             return True
         return False
