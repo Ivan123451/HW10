@@ -1,5 +1,6 @@
-from controller import start
-
+import controller
 
 if __name__ == '__main__':
-    start()
+    controller.start()
+
+
